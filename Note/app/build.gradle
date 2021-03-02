@@ -1,7 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'org.jetbrains.kotlin.kapt'
+    id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -30,6 +31,11 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+    android {
+        buildFeatures {
+            viewBinding = true
+        }
     }
 }
 
@@ -62,4 +68,8 @@ dependencies {
     //live data
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
     kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.9.1"
+
+    //
+    implementation "androidx.recyclerview:recyclerview:1.1.0"
 }
