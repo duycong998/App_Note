@@ -4,6 +4,7 @@ import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.note.ui.add.AddFragment
 import kotlinx.android.parcel.Parcelize
 
 @Entity(tableName = "note_table")
@@ -15,4 +16,8 @@ data class Note(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = " m_id")
     var mId: Int = 0
+
+    fun onClickAdd() {
+        AddFragment()
+    }
 }

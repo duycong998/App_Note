@@ -1,14 +1,12 @@
 package com.example.note.ui.main
 
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.note.R
 import com.example.note.data.model.Note
+import com.example.note.databinding.ItemNoteBinding
 
 class NoteAdapter : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
     private var listNote: MutableList<Note> = mutableListOf()
@@ -29,9 +27,9 @@ class NoteAdapter : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
-        val itemView =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_note, parent, false)
-        return NoteViewHolder(itemView)
+        val inflater = LayoutInflater.from(parent.context)
+        val userItemBind = ItemNoteBinding.inflate(inflater, parent, false)
+        return NoteViewHolder(userItemBind)
     }
 
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
@@ -40,25 +38,20 @@ class NoteAdapter : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
 
     override fun getItemCount() = listNote.size
 
-    inner class NoteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val textViewTitle = itemView.findViewById<TextView>(R.id.text_view_item_title)
-        private val textViewDescription =
-            itemView.findViewById<TextView>(R.id.text_view_item_description)
+    inner class NoteViewHolder(private val itemNoteBinding: ItemNoteBinding) :
+        RecyclerView.ViewHolder(itemNoteBinding.root) {
         private val imageDelete = itemView.findViewById<ImageView>(R.id.image_item_delete)
         private val imageEdit = itemView.findViewById<ImageView>(R.id.image_item_edit)
 
         fun onBind(note: Note) {
-            textViewDescription.text = note.mDescription
-            textViewTitle.text = note.mTitle
+            itemNoteBinding.note = note
 
-            imageDelete.setOnClickListener {
+            itemNoteBinding.imageItemDelete.setOnClickListener {
                 onItemClickListener!!.onDelete(note)
-                Log.d("AAA", "delete")
             }
 
-            imageEdit.setOnClickListener {
+            itemNoteBinding.imageItemEdit.setOnClickListener {
                 onItemClickListener!!.onEdit(note)
-                Log.d("AAA", "edit")
             }
         }
     }
