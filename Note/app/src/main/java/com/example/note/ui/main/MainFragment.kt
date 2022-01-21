@@ -24,7 +24,6 @@ class MainFragment : Fragment(R.layout.fragment_main), NoteAdapter.OnItemClick<N
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
-        //  initData()
         initEvent()
     }
 
@@ -34,26 +33,19 @@ class MainFragment : Fragment(R.layout.fragment_main), NoteAdapter.OnItemClick<N
         }
     }
 
-    private fun initData() {
-
-    }
-
     private fun initView() {
         val recyclerviewNote = view!!.findViewById<RecyclerView>(R.id.recyclerViewNote)
         recyclerviewNote.setHasFixedSize(true)
         recyclerviewNote.adapter = adapter
         adapter.registerItemRecyclerViewClickListener(this)
-
-        noteViewModel.getAllNote().observe(requireActivity(), {
+        noteViewModel.getAllNote().observe(requireActivity()) {
             adapter.updateNote(it)
-        })
+            recyclerviewNote.scrollToPosition(it.size - 1)
+        }
     }
 
     override fun onDelete(note: Note) {
         noteViewModel.deleteNote(note)
-//        noteViewModel.getAllNote().observe(requireActivity(), {
-//            adapter.updateNote(it)
-//        })
     }
 
     override fun onEdit(note: Note) {

@@ -2,9 +2,7 @@ package com.example.note.ui.main
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.note.R
 import com.example.note.data.model.Note
 import com.example.note.databinding.ItemNoteBinding
 
@@ -19,7 +17,7 @@ class NoteAdapter : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
     }
 
     fun updateNote(notes: MutableList<Note>) {
-        notes?.let {
+        notes.let {
             this.listNote.clear()
             this.listNote.addAll(notes)
             notifyDataSetChanged()
@@ -40,8 +38,6 @@ class NoteAdapter : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
 
     inner class NoteViewHolder(private val itemNoteBinding: ItemNoteBinding) :
         RecyclerView.ViewHolder(itemNoteBinding.root) {
-        private val imageDelete = itemView.findViewById<ImageView>(R.id.image_item_delete)
-        private val imageEdit = itemView.findViewById<ImageView>(R.id.image_item_edit)
 
         fun onBind(note: Note) {
             itemNoteBinding.note = note

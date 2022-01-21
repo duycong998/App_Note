@@ -34,23 +34,17 @@ class UpdateFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_update, container, false)
         binding!!.updateFragment = this
         return binding!!.root
-        //   return inflater.inflate(R.layout.fragment_update, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         note = arguments?.getParcelable("note")
-        /*val title = view.findViewById<EditText>(R.id.edit_text_update_title)
-        val description = view.findViewById<EditText>(R.id.edit_text_update_description)
-        title.setText(note!!.mTitle)
-        description.setText(note!!.mDescription)*/
+        clickUpdateNote()
     }
 
     private fun clickUpdateNote() {
         binding?.note = note
         button_update.setOnClickListener {
-    //            note!!.mTitle = title.text.toString()
-    //            note!!.mDescription = description.text.toString()
             noteViewModel.updateNote(note!!)
             replace(MainFragment(), R.id.container)
         }
